@@ -487,101 +487,101 @@ export default function Mac({
     });
 
     return (
-        <ScreenFrame
-            className="Mac"
-            bezelStyle={machine.bezelStyle}
-            bezelSize={bezelSize}
-            width={screenWidth}
-            height={screenHeight}
-            scale={scale}
-            fullscreen={fullscreen}
-            led={!emulatorLoaded || emulatorLoadingDiskChunk ? "Loading" : "On"}
-            onDragStart={handleDragStart}
-            onDragOver={handleDragOver}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-            controls={controls}
-            screen={
-                <>
-                    <canvas
-                        className={screenClassName}
-                        ref={screenRef}
-                        width={screenWidth}
-                        height={screenHeight}
-                        onContextMenu={e => e.preventDefault()}
-                    />
-                    {NEEDS_KEYBOARD_BUTTON && (
-                        <input
-                            type="text"
-                            className="Mac-Keyboard-Input"
-                            ref={keyboardInputRef}
-                        />
-                    )}
-                </>
-            }>
-            {progress}
-            {dragCount > 0 && (
-                <div
-                    className={classNames("Mac-Overlay", "Mac-Drag-Overlay", {
-                        "Mac-Drag-Overlay-Downloads":
-                            emulatorSupportsDownloadsFolder(
-                                machine.emulatorType
-                            ),
-                    })}
+        // <ScreenFrame
+        //     className="Mac"
+        //     bezelStyle={machine.bezelStyle}
+        //     bezelSize={bezelSize}
+        //     width={screenWidth}
+        //     height={screenHeight}
+        //     scale={scale}
+        //     fullscreen={fullscreen}
+        //     led={!emulatorLoaded || emulatorLoadingDiskChunk ? "Loading" : "On"}
+        //     onDragStart={handleDragStart}
+        //     onDragOver={handleDragOver}
+        //     onDragEnter={handleDragEnter}
+        //     onDragLeave={handleDragLeave}
+        //     onDrop={handleDrop}
+        //     controls={controls}
+        //     screen={
+        <>
+            <canvas
+                className={screenClassName}
+                ref={screenRef}
+                width={screenWidth}
+                height={screenHeight}
+                onContextMenu={e => e.preventDefault()}
+            />
+            {NEEDS_KEYBOARD_BUTTON && (
+                <input
+                    type="text"
+                    className="Mac-Keyboard-Input"
+                    ref={keyboardInputRef}
                 />
             )}
-            {ethernetProviderRef.current && (
-                <MacEthernetStatus
-                    provider={ethernetProviderRef.current}
-                    peers={ethernetPeers}
-                />
-            )}
-            {settingsVisible && (
-                <MacSettings
-                    emulatorType={machine.emulatorType}
-                    emulatorSettings={emulatorSettings}
-                    appearance={appearance}
-                    setEmulatorSettings={setEmulatorSettings}
-                    hasSavedHD={hasSavedHD}
-                    onStorageReset={() => {
-                        varz.increment("emulator_disk_saver_reset");
-                        emulatorRef.current?.restart(() =>
-                            resetDiskSaver(SAVED_HD)
-                        );
-                    }}
-                    onStorageExport={() => {
-                        emulatorRef.current?.restart(() =>
-                            exportDiskSaver(SAVED_HD)
-                        );
-                        varz.increment("emulator_disk_saver_export");
-                    }}
-                    onStorageImport={() => {
-                        emulatorRef.current?.restart(() =>
-                            importDiskSaver(SAVED_HD)
-                        );
-                        varz.increment("emulator_disk_saver_import");
-                    }}
-                    onSaveImage={deviceImage => {
-                        emulatorRef.current?.restart(() =>
-                            saveDiskSaverImage(SAVED_HD, deviceImage)
-                        );
-                        varz.increment("emulator_disk_saver_save_image");
-                    }}
-                    onDone={() => setSettingsVisible(false)}
-                />
-            )}
-            {emulatorErrorText && (
-                <MacError
-                    appearance={appearance}
-                    text={emulatorErrorText}
-                    onDone={() => setEmulatorErrorText("")}
-                />
-            )}
-            {!fullscreen && disks[0]?.infiniteHdSubset !== "mfs" && (
-                <MacCDROMs onRun={loadCDROM} appearance={appearance} />
-            )}
-        </ScreenFrame>
+        </>
+        //     }>
+        //     {progress}
+        //     {dragCount > 0 && (
+        //         <div
+        //             className={classNames("Mac-Overlay", "Mac-Drag-Overlay", {
+        //                 "Mac-Drag-Overlay-Downloads":
+        //                     emulatorSupportsDownloadsFolder(
+        //                         machine.emulatorType
+        //                     ),
+        //             })}
+        //         />
+        //     )}
+        //     {ethernetProviderRef.current && (
+        //         <MacEthernetStatus
+        //             provider={ethernetProviderRef.current}
+        //             peers={ethernetPeers}
+        //         />
+        //     )}
+        //     {settingsVisible && (
+        //         <MacSettings
+        //             emulatorType={machine.emulatorType}
+        //             emulatorSettings={emulatorSettings}
+        //             appearance={appearance}
+        //             setEmulatorSettings={setEmulatorSettings}
+        //             hasSavedHD={hasSavedHD}
+        //             onStorageReset={() => {
+        //                 varz.increment("emulator_disk_saver_reset");
+        //                 emulatorRef.current?.restart(() =>
+        //                     resetDiskSaver(SAVED_HD)
+        //                 );
+        //             }}
+        //             onStorageExport={() => {
+        //                 emulatorRef.current?.restart(() =>
+        //                     exportDiskSaver(SAVED_HD)
+        //                 );
+        //                 varz.increment("emulator_disk_saver_export");
+        //             }}
+        //             onStorageImport={() => {
+        //                 emulatorRef.current?.restart(() =>
+        //                     importDiskSaver(SAVED_HD)
+        //                 );
+        //                 varz.increment("emulator_disk_saver_import");
+        //             }}
+        //             onSaveImage={deviceImage => {
+        //                 emulatorRef.current?.restart(() =>
+        //                     saveDiskSaverImage(SAVED_HD, deviceImage)
+        //                 );
+        //                 varz.increment("emulator_disk_saver_save_image");
+        //             }}
+        //             onDone={() => setSettingsVisible(false)}
+        //         />
+        //     )}
+        //     {emulatorErrorText && (
+        //         <MacError
+        //             appearance={appearance}
+        //             text={emulatorErrorText}
+        //             onDone={() => setEmulatorErrorText("")}
+        //         />
+        //     )}
+        //     {!fullscreen && disks[0]?.infiniteHdSubset !== "mfs" && (
+        //         <MacCDROMs onRun={loadCDROM} appearance={appearance} />
+        //     )}
+        // </ScreenFrame>
     );
 }
 

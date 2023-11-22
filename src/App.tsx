@@ -5,60 +5,21 @@ import {Footer} from "./Footer";
 import {type RunDef, runDefFromUrl, runDefToUrl} from "./run-def";
 
 function App() {
-    const initialRunDef = useMemo(() => runDefFromUrl(location.href), []);
-    const [runDef, setRunDef] = useState<RunDef | undefined>(initialRunDef);
-    useEffect(() => {
-        const listener = () => {
-            setRunDef(runDefFromUrl(location.href));
-        };
-        window.addEventListener("popstate", listener);
-        return () => window.removeEventListener("popstate", listener);
-    }, []);
+    let runDef: RunDef | undefined = runDefFromUrl(
+        "http://localhost:3127/run?cdrom=https://dt21q8x1gk8qh.cloudfront.net/Bachman7&machine=Quadra+650&ram=8M"
+    );
 
     let contents;
     let footer: React.ReactElement | undefined = <Footer />;
     if (runDef) {
-        const handleDone = () => {
-            // Going back in the history is preferred over resetting the
-            // state because the browser will restore the scroll position.
-            if (runDef !== initialRunDef) {
-                history.back();
-            } else {
-                history.pushState({}, "", "/");
-                setRunDef(undefined);
-            }
-        };
         contents = (
             <Suspense fallback={<div />}>
-                <RunDefMac runDef={runDef} onDone={handleDone} />
+                <RunDefMac runDef={runDef} onDone={() => {}} />
             </Suspense>
         );
-        footer = <Footer onLogoClick={handleDone} />;
-    } else {
-        contents = (
-            <React.StrictMode>
-                <Browser
-                    onRun={(runDef, inNewWindow) => {
-                        const runDefUrl = runDefToUrl(runDef);
-                        if (inNewWindow) {
-                            window.open(runDefUrl, "_blank");
-                            return;
-                        }
-                        history.pushState({}, "", runDefUrl);
-                        setRunDef(runDef);
-                    }}
-                />
-            </React.StrictMode>
-        );
-        footer = undefined;
     }
 
-    return (
-        <div className="App">
-            {contents}
-            {footer}
-        </div>
-    );
+    return <div className="App">{contents}</div>;
 }
 
 const RunDefMac = React.lazy(() => import("./RunDefMac"));

@@ -40,6 +40,8 @@ function isValidSrcUrl(srcUrl: string) {
         "archive.org",
         "img.classicmacdemos.com",
         "macintoshrepository.org",
+        "dt21q8x1gk8qh.cloudfront.net",
+        "bachemulator.s3.us-west-2.amazonaws.com",
     ];
     for (const allowedDomain of allowedDomains) {
         if (
