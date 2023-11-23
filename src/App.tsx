@@ -5,8 +5,12 @@ import {Footer} from "./Footer";
 import {type RunDef, runDefFromUrl, runDefToUrl} from "./run-def";
 
 function App() {
+    let cdRom = "https://dt21q8x1gk8qh.cloudfront.net/BachmanGame.img";
+    let machine = "Mac+II";
+    let ram = "8M";
+
     let runDef: RunDef | undefined = runDefFromUrl(
-        "http://localhost:3127/run?cdrom=https://dt21q8x1gk8qh.cloudfront.net/Bachman7&machine=Quadra+650&ram=8M"
+        `http://localhost:3127/run?cdrom=${cdRom}&machine=${machine}&ram=${ram}`
     );
 
     let contents;

@@ -168,7 +168,7 @@
     right: 0;
     top: 0;
     font-size: 13px;
-    background: #282c3499;
+    background: rgba(0, 0, 0, 0.2);
     padding: 10px;
     border-radius: 10px;
 }

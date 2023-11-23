@@ -78,12 +78,12 @@ async function handleRequest(
 
         response.headers.set("X-XSS-Protection", "1; mode=block");
         response.headers.set("X-Content-Type-Options", "nosniff");
-        response.headers.set("X-Frame-Options", "DENY");
+        response.headers.set("X-Frame-Options", "ALLOW");
         response.headers.set("Referrer-Policy", "unsafe-url");
         response.headers.set("Feature-Policy", "none");
         // Allow SharedArrayBuffer to work
         response.headers.set("Cross-Origin-Opener-Policy", "same-origin");
-        response.headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+        response.headers.set("Cross-Origin-Embedder-Policy", "unsafe-none");
         // Allow the service worker to intercept all paths, even when
         // initiated from a year subpath.
         response.headers.set("Service-Worker-Allowed", "/");
